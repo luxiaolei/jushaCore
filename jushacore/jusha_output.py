@@ -283,6 +283,7 @@ class jusha_output:
         condition that (v1,...,vn) form simplex. We iteratively generate this
         data, starting from S[()][i] = (data points for the node i).
         '''
+        print "Using new method to generate complex!"
         self.simplices = simpl_complex()
         dim = 0
         print("There are {0} nodes.".format(self.num_nodes))
@@ -709,7 +710,7 @@ class jusha_output:
         self.clear_nodes()
         for i, (dataidx, Z, diam), num_clust in zip(count(),
                                                      self.scale_graph_data,
-            
+
                                                      num_nodes_path):
             #print('size is :: {0}').format(dataidx)
             if num_clust==0:
@@ -743,7 +744,7 @@ class jusha_output:
         if simple:
             self.generate_graph(cover=cover, verbose=verbose)
         else:
-            self.generate_complex(cover=cover, verbose=verbose)
+            self.generate_complex_new(cover=cover, verbose=verbose)
         if verbose:
             print ('Dimension: {0}'.format(self.dimension))
         sizes = self.node_sizes.values()
@@ -895,7 +896,7 @@ class simpl_complex:
         '''
         print key
         print self.simplices
-        print 
+        print
         return self.simplices[key]
 
     def __setitem__( self, key, value):
@@ -1125,7 +1126,7 @@ class scale_graph_data:
         self.indexindicator = 0
 
     def append(self, dataidx, dendrogram, diameter, levelindex):
-        
+
         #if len(levelindex!=1): print levelindex
         #assert len(levelindex)==1
         #index = levelindex[0]
